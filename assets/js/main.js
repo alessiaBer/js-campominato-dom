@@ -20,7 +20,6 @@ const playBtn = document.querySelector('.btn-info');
 const options = document.getElementById('levels');
 
 
-
 /*****GENERARE UN ARRAY DI 16 NUMERI CASUALI *****/
 // aggiungo la funzione per generare numeri casuali
 function getRandomInteger(min, max) {
@@ -56,8 +55,6 @@ function createNumbArray(max_cells) {
     
     console.log(generatedNumb);
 }
-
-//createNumbArray();
 /*********/
 
 
@@ -92,8 +89,6 @@ function generateGrid(max_cells) {
     //per svuotare ogni volta la pagina
     containerEl.innerHTML = '';
 
-    //selectLevel();
-
     let i = 1;
     while (i <= max_cells) {
         // creo nella DOM un elemento div e lo assegno ad una variabile
@@ -109,11 +104,10 @@ function generateGrid(max_cells) {
         //incremento per il while loop
         i++;
     }
-
 }  
+/*********/
 
-
-
+/*** WHEN A CELL IS CLICKED ****/
 function clickedCell(array) {
     
     //seleziono tutte le celle e le assegno ad una variabile
@@ -121,32 +115,33 @@ function clickedCell(array) {
 
     // ciclo dentro alla variabile cells per selezionare ogni cella
     for (let i = 0; i < cells.length; i++) {
-    //seleziono ogni singola casella e la assegno ad una variabile
-    const cell = cells[i];
+        //seleziono ogni singola casella e la assegno ad una variabile
+        const cell = cells[i];
 
-    //aggiungo un event listener al click
-    cell.addEventListener('click', function() {
-        if (generatedNumb.includes(Number(cell.innerHTML))) {
-            cell.classList.add('bg_red');
-        } else {
-            //toggle la classe background azzurro
-            cell.classList.toggle('bg_light_blue');
-            //console log il numero della casella
-            console.log(`hai cliccato la casella ${cell.innerHTML}`);
-        }
-    })
-
+        //aggiungo un event listener al click
+        cell.addEventListener('click', function() {
+            if (generatedNumb.includes(Number(cell.innerHTML))) {
+                cell.classList.add('bg_red');
+                alert('hai perso!');
+                return;
+                
+            } else {
+                //toggle la classe background azzurro
+                cell.classList.toggle('bg_light_blue');
+                //console log il numero della casella
+                console.log(`hai cliccato la casella ${cell.innerHTML}`);
+            }
+        })
+    }
 }
+/********/   
 
-}
-    
+
 playBtn.addEventListener('click', function() {
 
     selectLevel();
 
     createNumbArray(max_cells);
-
-    
 
     generateGrid(max_cells);
 
@@ -154,11 +149,6 @@ playBtn.addEventListener('click', function() {
 
 })
 
-
-/* In seguito l'utente clicca su una cella:
-se il numero è presente nella lista dei numeri generati
-abbiamo calpestato una bomba
-la cella si colora di rosso e la partita termina. */
 
 
 /* Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.

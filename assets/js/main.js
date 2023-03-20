@@ -10,6 +10,8 @@ con difficoltà 1 => 100 caselle, con un numero compreso tra 1 e 100, divise in 
 con difficoltà 2 => 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
 con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe; */
 
+let gameOver = false;
+
 // seleziono l'elemento container della DOM e lo assegno a una variabile
 const containerEl = document.querySelector('.container');
 
@@ -29,12 +31,12 @@ function getRandomInteger(min, max) {
 //assegno ad una variabile un array vuoto
 let generatedNumb = [];
 
+// assegno ad una costante il max dei numeri che devono essere generati
+const maxRandomNumbs = 16;
+
 //creo una MIA funzione per creare l'array di 16 numeri casuali
 function createNumbArray(max_cells) {
-   // assegno ad una costante il max dei numeri che devono essere generati
-    const maxRandomNumbs = 16;
-    
-
+   
     // ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
     let i = 1;
     while (i <= maxRandomNumbs) {
@@ -113,6 +115,9 @@ function clickedCell(array) {
     //seleziono tutte le celle e le assegno ad una variabile
     const cells = document.querySelectorAll('.cell');
 
+    let numbOfClick = 0;
+    let maxClick = max_cells - maxRandomNumbs;
+
     // ciclo dentro alla variabile cells per selezionare ogni cella
     for (let i = 0; i < cells.length; i++) {
         //seleziono ogni singola casella e la assegno ad una variabile
@@ -123,18 +128,29 @@ function clickedCell(array) {
             if (generatedNumb.includes(Number(cell.innerHTML))) {
                 cell.classList.add('bg_red');
                 alert('hai perso!');
+                gameOver = true;
                 return;
-                
             } else {
                 //toggle la classe background azzurro
                 cell.classList.toggle('bg_light_blue');
                 //console log il numero della casella
                 console.log(`hai cliccato la casella ${cell.innerHTML}`);
+
+                numbOfClick++;
+
+                if (numbOfClick === maxClick) {
+                    gameOver = true;
+                    return;
+                }
             }
+        
         })
     }
 }
-/********/   
+/********/ 
+
+
+
 
 
 playBtn.addEventListener('click', function() {
@@ -147,6 +163,9 @@ playBtn.addEventListener('click', function() {
 
     clickedCell(generatedNumb);
 
+    if (gameOver) {
+        return;
+    }
 })
 
 

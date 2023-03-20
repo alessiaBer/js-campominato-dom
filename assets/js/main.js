@@ -29,15 +29,12 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-//assegno ad una variabile un array vuoto
-let generatedNumb = [];
-
-// assegno ad una costante il max dei numeri che devono essere generati
-const maxRandomNumbs = 16;
-
 //creo una MIA funzione per creare l'array di 16 numeri casuali
 function createNumbArray(max_cells) {
-   
+    //assegno ad una variabile un array vuoto
+    let generatedNumb = [];
+    // assegno ad una costante il max dei numeri che devono essere generati
+    const maxRandomNumbs = 16;
     // ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
     let i = 1;
     while (i <= maxRandomNumbs) {
@@ -55,7 +52,8 @@ function createNumbArray(max_cells) {
         //incremento per il while loop 
         i++;
     } 
-    
+    return generatedNumb;
+    return maxRandomNumbs;
     //console.log(generatedNumb);
 }
 /*********/
@@ -109,7 +107,7 @@ function generateGrid(max_cells) {
 /*********/
 
 /*** WHEN A CELL IS CLICKED ****/
-function clickedCell(array) {
+function clickedCell(array, maxRandomNumbs) {
     
     //seleziono tutte le celle e le assegno ad una variabile
     const cells = document.querySelectorAll('.cell');

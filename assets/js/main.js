@@ -167,9 +167,16 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-for (let i = 1; i <= maxRandomNumbs; i++) {
-    const randomNumb = getRandomInteger(1, 100);
-    generatedNumb.push(randomNumb);
-    console.log(generatedNumb);
-}
 
+let i = 1;
+while (i <= maxRandomNumbs) {
+    let randomNumb = getRandomInteger(1, 100);
+    if (!generatedNumb.includes(randomNumb)) {
+        generatedNumb.push(randomNumb);
+    } else {
+        continue;
+    }
+
+    i++;
+}
+console.log(generatedNumb);

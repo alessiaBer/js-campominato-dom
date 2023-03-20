@@ -126,9 +126,13 @@ function clickedCell(array) {
 
         //aggiungo un event listener al click
         cell.addEventListener('click', function() {
+            //se il numero della cella cliccata corrisponde a un numero dell'array 
             if (generatedNumb.includes(Number(cell.innerHTML))) {
+                // la cella si colora di rosso
                 cell.classList.add('bg_red');
+                // messaggio hai perso
                 alert('hai perso!');
+                //la variabile gameOver è settata su true
                 gameOver = true;
                 return;
             } else {
@@ -137,10 +141,14 @@ function clickedCell(array) {
                 //console log il numero della casella
                 //console.log(`hai cliccato la casella ${cell.innerHTML}`);
 
+                // incremento il numero dei click 
                 numbOfClick++;
 
+                //se il numero dei click è uguale al maxClick
                 if (numbOfClick === maxClick) {
+                    //messaggio di vittoria
                     console.log(`Hai vinto! Hai cliccato ${numbOfClick} volte senza beccare una bomba!`);
+                    //gameover è settato su true
                     gameOver = true;
                     return;
                 }
@@ -154,7 +162,7 @@ function clickedCell(array) {
 
 
 
-
+// applico al btn un event listener che richiama le variabili dichiarate sopra
 playBtn.addEventListener('click', function() {
 
     selectLevel();

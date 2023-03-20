@@ -28,7 +28,7 @@ function getRandomInteger(min, max) {
 }
 
 //assegno ad una variabile un array vuoto
-const generatedNumb = [];
+let generatedNumb = [];
 
 //creo una MIA funzione per creare l'array di 16 numeri casuali
 function createNumbArray(max_cells) {
@@ -79,6 +79,8 @@ function selectLevel() {
     }
     
     console.log(max_cells);
+
+    generatedNumb = [];
 }
 /***********/
 
@@ -139,7 +141,7 @@ function clickedCell(array) {
 }
     
 playBtn.addEventListener('click', function() {
-    
+
     selectLevel();
 
     createNumbArray(max_cells);

@@ -1,0 +1,33 @@
+body{
+    background-color: aquamarine;
+    height: 100vh;
+}
+
+main {
+    padding-bottom: 80px;
+}
+
+.cell {
+    min-width: calc(100% / 10);
+    aspect-ratio: 1 / 1;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    background-color: var(--bs-purple);
+}
+
+.bg_light_blue {
+    background-color: aqua;
+}
+
+footer {
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}

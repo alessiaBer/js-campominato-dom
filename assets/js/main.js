@@ -10,6 +10,7 @@ con difficoltà 1 => 100 caselle, con un numero compreso tra 1 e 100, divise in 
 con difficoltà 2 => 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
 con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe; */
 
+//assegno alla variabile gameOver il valore false che poi cambierà nel corso del gioco
 let gameOver = false;
 
 // seleziono l'elemento container della DOM e lo assegno a una variabile
@@ -55,7 +56,7 @@ function createNumbArray(max_cells) {
         i++;
     } 
     
-    console.log(generatedNumb);
+    //console.log(generatedNumb);
 }
 /*********/
 
@@ -64,10 +65,6 @@ function createNumbArray(max_cells) {
 let max_cells; 
 
 function selectLevel() {
-   //inizializzo il valore di level al default 1
-     /* 
-    //assegno all'elemento select un event listener al cambiare del valore delle option
-    options.addEventListener('change', function(){*/
     //con un if statement stabilisco il livello in base al valore scelto del select 
     if (options.value == 1) {
         max_cells = 100;
@@ -77,8 +74,9 @@ function selectLevel() {
         max_cells = 49;
     }
     
-    console.log(max_cells);
+    //console.log(max_cells);
 
+    //pulisco l'array ogni qualvolta viene variato il livello
     generatedNumb = [];
 }
 /***********/
@@ -91,6 +89,7 @@ function generateGrid(max_cells) {
     //per svuotare ogni volta la pagina
     containerEl.innerHTML = '';
 
+    //attraverso un ciclo while che itera fino al numero massimo di caselle
     let i = 1;
     while (i <= max_cells) {
         // creo nella DOM un elemento div e lo assegno ad una variabile
@@ -115,8 +114,10 @@ function clickedCell(array) {
     //seleziono tutte le celle e le assegno ad una variabile
     const cells = document.querySelectorAll('.cell');
 
+    //stabilisco i numero di click a 0, il valore verrà variato nel corso del gioco
     let numbOfClick = 0;
-    let maxClick = max_cells - maxRandomNumbs;
+    //stabilisco il numero massimo delle volte in cui si può cliccare in una giocata
+    const maxClick = max_cells - maxRandomNumbs;
 
     // ciclo dentro alla variabile cells per selezionare ogni cella
     for (let i = 0; i < cells.length; i++) {
@@ -134,11 +135,12 @@ function clickedCell(array) {
                 //toggle la classe background azzurro
                 cell.classList.toggle('bg_light_blue');
                 //console log il numero della casella
-                console.log(`hai cliccato la casella ${cell.innerHTML}`);
+                //console.log(`hai cliccato la casella ${cell.innerHTML}`);
 
                 numbOfClick++;
 
                 if (numbOfClick === maxClick) {
+                    console.log(`Hai vinto! Hai cliccato ${numbOfClick} volte senza beccare una bomba!`);
                     gameOver = true;
                     return;
                 }

@@ -24,6 +24,10 @@ main {
     background-color: aqua;
 }
 
+.bg_red {
+    background-color: red;
+}
+
 footer {
     height: 60px;
     position: fixed;

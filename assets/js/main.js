@@ -20,6 +20,41 @@ const playBtn = document.querySelector('.btn-info');
 //seleziono l'elemento select presente nella DOM
 const options = document.getElementById('levels');
 
+
+// assegno ad una costante il max dei numeri che devono essere generati
+const maxRandomNumbs = 16;
+//assegno ad una variabile un array vuoto
+const generatedNumb = [];
+
+// aggiungo la funzione per generare numeri casuali
+function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+// ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
+let i = 1;
+while (i <= maxRandomNumbs) {
+    //assegno i numeri genrati ad una variabile
+    let randomNumb = getRandomInteger(1, 100); // TODO change 100 with max_cells
+    //con un if statement controllo se nell'array è già presente un numero 
+    if (!generatedNumb.includes(randomNumb)) {
+        //se non è presente lo aggiungo all'array
+        generatedNumb.push(randomNumb);
+    } else {
+        //se è già presente continuo a generare
+        continue;
+    }
+
+    //incremento per il while loop 
+    i++;
+}
+
+console.log(generatedNumb);
+
+
+
+
+
 //inizializzo il valore di level al default 1
 let level = 1;
 
@@ -115,25 +150,36 @@ playBtn.addEventListener('click', function() {
             i++;
         }
     }
-    
+
     //seleziono tutte le celle e le assegno ad una variabile
-    const cells = document.querySelectorAll('.cell');
+const cells = document.querySelectorAll('.cell');
 
-    // ciclo dentro alla variabile cells per selezionare ogni cella
-    for (let i = 0; i < cells.length; i++) {
-        //seleziono ogni singola casella e la assegno ad una variabile
-        const thisCell = cells[i];
+// ciclo dentro alla variabile cells per selezionare ogni cella
+for (let i = 0; i < cells.length; i++) {
+    //seleziono ogni singola casella e la assegno ad una variabile
+    const thisCell = cells[i];
 
-        //aggiungo un event listener al click
-        thisCell.addEventListener('click', function() {
-            //toggle la classe background azzurro
-            thisCell.classList.toggle('bg_light_blue');
-            //console log il numero della casella
-            console.log(`hai cliccato la casella ${thisCell.innerHTML}`);
-        })
-    }
+    //aggiungo un event listener al click
+    thisCell.addEventListener('click', function() {
+
+        if (thisCell[i] === generatedNumb[i]) {
+            thisCell.classList.toggle('bg_red');
+        } else {
+        //toggle la classe background azzurro
+        thisCell.classList.toggle('bg_light_blue');
+        //console log il numero della casella
+        console.log(`hai cliccato la casella ${thisCell.innerHTML}`);
+        }
+    })
+}
 
 })
+
+
+/* In seguito l'utente clicca su una cella:
+se il numero è presente nella lista dei numeri generati
+abbiamo calpestato una bomba
+la cella si colora di rosso e la partita termina. */
 
 
 /* Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
@@ -156,36 +202,3 @@ difficoltà 1 ⇒ 100 caselle, con un numero compreso tra 1 e 100, divise in 10 
 difficoltà 2 ⇒ 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
 difficoltà 3 ⇒ 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe; */
 
-//genero 16 numeri casuali e li assegno ad un array
-//i numeri devono essere tutti diversi
-
-// assegno ad una costante il max dei numeri che devono essere generati
-const maxRandomNumbs = 16;
-
-//assegno ad una variabile un array vuoto
-const generatedNumb = [];
-
-// aggiungo la funzione per generare numeri casuali
-function getRandomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min) ) + min;
-}
-
-// ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
-let i = 1;
-while (i <= maxRandomNumbs) {
-    //assegno i numeri genrati ad una variabile
-    let randomNumb = getRandomInteger(1, 100); // TODO change 100 with max_cells
-    //con un if statement controllo se nell'array è già presente un numero 
-    if (!generatedNumb.includes(randomNumb)) {
-        //se non è presente lo aggiungo all'array
-        generatedNumb.push(randomNumb);
-    } else {
-        //se è già presente continuo a generare
-        continue;
-    }
-
-    //incremento per il while loop 
-    i++;
-}
-
-console.log(generatedNumb);

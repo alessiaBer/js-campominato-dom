@@ -27,18 +27,20 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
+//assegno ad una variabile un array vuoto
+const generatedNumb = [];
+
 //creo una MIA funzione per creare l'array di 16 numeri casuali
-function createNumbArray() {
+function createNumbArray(max_cells) {
    // assegno ad una costante il max dei numeri che devono essere generati
     const maxRandomNumbs = 16;
-    //assegno ad una variabile un array vuoto
-    const generatedNumb = [];
+    
 
     // ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
     let i = 1;
     while (i <= maxRandomNumbs) {
         //assegno i numeri genrati ad una variabile
-        let randomNumb = getRandomInteger(1, 100); // TODO change 100 with max_cells
+        let randomNumb = getRandomInteger(1, max_cells); // TODO change 100 with max_cells
         //con un if statement controllo se nell'array è già presente un numero 
         if (!generatedNumb.includes(randomNumb)) {
             //se non è presente lo aggiungo all'array
@@ -60,9 +62,7 @@ function createNumbArray() {
 
 
 /*****SELECT LEVEL *****/
-let level;
 let max_cells; 
-
 
 function selectLevel() {
    //inizializzo il valore di level al default 1
@@ -80,12 +80,11 @@ function selectLevel() {
     
     console.log(max_cells);
 }
-
-
-
 /***********/
 
-// assegno al btn un event listener per il click 
+
+
+/***** FUNCTION TO GENERATE THE GAME GRID ******/
 function generateGrid(max_cells) {
     //al click:
     //per svuotare ogni volta la pagina
@@ -102,7 +101,7 @@ function generateGrid(max_cells) {
         //aggiungo all'elemento la classe .cell
         cellEl.classList.add('cell');
         //assegno all'interno della cell l'html corrispondente al suo index
-        cellEl.innerHTML = `${i}`;
+        cellEl.innerHTML = `${Number(i)}`;
         //appendo le cell create all'elemento container
         containerEl.append(cellEl);
         //incremento per il while loop
@@ -113,7 +112,7 @@ function generateGrid(max_cells) {
 
 
 
-function clickedCell() {
+function clickedCell(array) {
     
     //seleziono tutte le celle e le assegno ad una variabile
     const cells = document.querySelectorAll('.cell');
@@ -121,31 +120,35 @@ function clickedCell() {
     // ciclo dentro alla variabile cells per selezionare ogni cella
     for (let i = 0; i < cells.length; i++) {
     //seleziono ogni singola casella e la assegno ad una variabile
-    const thisCell = cells[i];
+    const cell = cells[i];
 
     //aggiungo un event listener al click
-    thisCell.addEventListener('click', function() {
-
-        if (thisCell[i] === generatedNumb[i]) {
-            thisCell.classList.toggle('bg_red');
+    cell.addEventListener('click', function() {
+        if (generatedNumb.includes(Number(cell.innerHTML))) {
+            cell.classList.add('bg_red');
         } else {
-        //toggle la classe background azzurro
-        thisCell.classList.toggle('bg_light_blue');
-        //console log il numero della casella
-        console.log(`hai cliccato la casella ${thisCell.innerHTML}`);
+            //toggle la classe background azzurro
+            cell.classList.toggle('bg_light_blue');
+            //console log il numero della casella
+            console.log(`hai cliccato la casella ${cell.innerHTML}`);
         }
     })
+
 }
 
 }
     
 playBtn.addEventListener('click', function() {
     
-    createNumbArray();
-
     selectLevel();
 
+    createNumbArray(max_cells);
+
+    
+
     generateGrid(max_cells);
+
+    clickedCell(generatedNumb);
 
 })
 

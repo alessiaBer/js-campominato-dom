@@ -8,7 +8,7 @@ main {
 }
 
 .cell {
-    /*min-width: calc(100% / 10); */
+    /*min-width: calc(100% / 10); */ 
     aspect-ratio: 1 / 1;
     border: 1px solid;
     display: flex;

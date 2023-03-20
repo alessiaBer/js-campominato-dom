@@ -159,24 +159,33 @@ difficoltà 3 ⇒ 49 caselle, con un numero compreso tra 1 e 49, divise in 7 cas
 //genero 16 numeri casuali e li assegno ad un array
 //i numeri devono essere tutti diversi
 
+// assegno ad una costante il max dei numeri che devono essere generati
 const maxRandomNumbs = 16;
 
+//assegno ad una variabile un array vuoto
 const generatedNumb = [];
 
+// aggiungo la funzione per generare numeri casuali
 function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-
+// ciclo nei numeri da 1 al maxRandomNumbs per generare 16 numeri casuali
 let i = 1;
 while (i <= maxRandomNumbs) {
-    let randomNumb = getRandomInteger(1, 100);
+    //assegno i numeri genrati ad una variabile
+    let randomNumb = getRandomInteger(1, 100); // TODO change 100 with max_cells
+    //con un if statement controllo se nell'array è già presente un numero 
     if (!generatedNumb.includes(randomNumb)) {
+        //se non è presente lo aggiungo all'array
         generatedNumb.push(randomNumb);
     } else {
+        //se è già presente continuo a generare
         continue;
     }
 
+    //incremento per il while loop 
     i++;
 }
+
 console.log(generatedNumb);

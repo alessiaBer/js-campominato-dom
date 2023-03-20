@@ -21,6 +21,8 @@ const playBtn = document.querySelector('.btn-info');
 const options = document.getElementById('levels');
 
 
+
+/***GENERARE 16 NUMERI RANDOM****/
 // assegno ad una costante il max dei numeri che devono essere generati
 const maxRandomNumbs = 16;
 //assegno ad una variabile un array vuoto
@@ -50,7 +52,7 @@ while (i <= maxRandomNumbs) {
 }
 
 console.log(generatedNumb);
-
+/***** ****/
 
 
 
@@ -58,18 +60,13 @@ console.log(generatedNumb);
 //inizializzo il valore di level al default 1
 let level = 1;
 
+let max_cells = 100;
+
 //assegno all'elemento select un event listener al click 
-options.addEventListener('click', function(){
+/* options.addEventListener('click', function(){
     //assegno all'elemento select un event listener al cambiare del valore delle option
     options.addEventListener('change', function(){
-        //con un if statement stabilisco il livello in base al valore scelto del select
-        if (options.value == 1) {
-            level = 1;
-        } else if (options.value == 2) {
-            level = 2;
-        } else if (options.value == 3) {
-            level = 3;
-        }
+        
 
         //in base al level applico una classe al btn 
         playBtn.classList.add(`level-${level}`);
@@ -81,7 +78,7 @@ options.addEventListener('click', function(){
     //rimuovo la classe level- ogni volta che un livello viene inizializzato
     playBtn.classList.remove(`level-${level}`);
 
-});
+}); */
 
 //aggiungo al playBtn la classe di default
 playBtn.classList.add(`level-${level}`);
@@ -92,7 +89,35 @@ playBtn.addEventListener('click', function() {
     //per svuotare ogni volta la pagina
     containerEl.innerHTML = '';
 
-    //if statement che crea n caselle in base al livello scelto
+    //con un if statement stabilisco il livello in base al valore scelto del select
+        if (options.value == 1) {
+            level = 1;
+        } else if (options.value == 2) {
+            level = 2;
+            max_cells = 81;
+        } else if (options.value == 3) {
+            level = 3;
+            max_cells = 49;
+        }
+
+        let i = 1;
+        while (i <= max_cells) {
+        // creo nella DOM un elemento div e lo assegno ad una variabile
+        const cellEl = document.createElement('div');
+        //applico la width giusta per ogni livello
+        cellEl.style.width = `calc(100% / ${Math.sqrt(max_cells)})`;
+        //aggiungo all'elemento la classe .cell
+        cellEl.classList.add('cell');
+        //assegno all'interno della cell l'html corrispondente al suo index
+        cellEl.innerHTML = `${i}`;
+        //appendo le cell create all'elemento container
+        containerEl.append(cellEl);
+
+        i++
+
+        }
+
+    /* //if statement che crea n caselle in base al livello scelto
     if (playBtn.classList.contains('level-1')) {
         let i = 1
         while (i <= 100) {
@@ -149,7 +174,7 @@ playBtn.addEventListener('click', function() {
             //incremento per il while loop
             i++;
         }
-    }
+    } */
 
     //seleziono tutte le celle e le assegno ad una variabile
 const cells = document.querySelectorAll('.cell');
@@ -161,9 +186,10 @@ for (let i = 0; i < cells.length; i++) {
 
     //aggiungo un event listener al click
     thisCell.addEventListener('click', function() {
-
+        //se il numero è presente nella lista dei numeri generati
         if (thisCell[i] === generatedNumb[i]) {
             thisCell.classList.toggle('bg_red');
+            alert('hai perso!');
         } else {
         //toggle la classe background azzurro
         thisCell.classList.toggle('bg_light_blue');
@@ -174,12 +200,19 @@ for (let i = 0; i < cells.length; i++) {
 }
 
 })
+/**** TODO 
+//LA PARTITA TERMINA dopo aver cliccato su una bomba
+//oppure QUANDO RAGGIUNGE IL NUMERO MAX DI NUMERI CONSENTITI (max_cells - maxRandomNumbs?)
+******/
+
+/**** TODO 
+//quando la partita termina 
+//SOFTWARE COMUNICA IL PUNTEGGIO > numero di volte che user ha click su una casella
+//che non era una bomba 
+// ?? creare let con numero click e nell'else del bg_light_blue mettere ++ ??
+******/
 
 
-/* In seguito l'utente clicca su una cella:
-se il numero è presente nella lista dei numeri generati
-abbiamo calpestato una bomba
-la cella si colora di rosso e la partita termina. */
 
 
 /* Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
@@ -192,8 +225,10 @@ la cella si colora di rosso e la partita termina.
 Altrimenti
 la cella cliccata si colora di azzurro
 l'utente può continuare a cliccare sulle altre celle.
-La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti (ovvero quando ha rivelato tutte le celle che non sono bombe).
+La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti 
+(ovvero quando ha rivelato tutte le celle che non sono bombe).
 Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+
 
 
 BONUS:
